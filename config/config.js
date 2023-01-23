@@ -1,7 +1,9 @@
+require('dotenv').config();
+
 var config = {
-    instance_name: 'PCNODEWEBO1',
-    port: 8001,
-    port_api: 1900,
+    instance_name: process.env.instance_name,
+    port: process.env.port,
+    port_api: process.env.port_api,
     jobs: {
         delayed_message: true
     },
@@ -56,9 +58,6 @@ var config = {
         }
     }
 };
-
-
-
 
 module.exports = config;
 

@@ -9,7 +9,11 @@
   "author": "Franz Nic7",
   "license": "ISC",
   "dependencies": {
+    "@socket.io/admin-ui": "^0.5.1",
+    "@socket.io/cluster-adapter": "^0.2.1",
+    "@socket.io/sticky": "^1.0.2",
     "dgram": "*",
+    "dotenv": "^16.0.3",
     "express": "*",
     "moment": "*",
     "multer": "*",
@@ -17,10 +21,7 @@
     "node-schedule": "*",
     "request": "*",
     "socket.io": "*",
-    "ssl-root-cas": "*",
-    "@socket.io/admin-ui": "^0.5.1",
-    "@socket.io/cluster-adapter": "^0.2.1",
-    "@socket.io/sticky": "^1.0.2"
+    "ssl-root-cas": "*"
   },
   "devDependencies": {
     "nodemon": "*"
