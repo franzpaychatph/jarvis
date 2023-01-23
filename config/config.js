@@ -14,10 +14,10 @@ var config = {
     },
     database: {
         main: {
-            host     : 'localhost',
-            user     : 'root',
+            host     : process.env.mysql_host,
+            user     : process.env.mysql_user,
             password : '',
-            database : 'paychat-jarvis',
+            database : process.env.mysql_database,
             charset  : 'utf8mb4'
         },
         odin: {
