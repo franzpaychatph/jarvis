@@ -2,14 +2,38 @@ const config = require('./config/config');
 const express = require('express')
 const app = express()
 const port = config.port || 3000;
+const mysql = require('mysql');
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
+
+var mysql      = require('mysql');
+var connection = mysql.createConnection({
+    port : 3306, 
+    host : '18.141.50.78',
+    user : 'ec2-user',
+    password : 'ZBbnjLLVdYCvJLPB',
+    database : 'paychat-jarvis',
+    charset: 'utf8mb4'
+});
+ 
+connection.connect();
+ 
+connection.query('SELECT 1 + 1 AS solution', function (error, results, fields) {
+  if (error) throw error;
+  console.log('The solution is: ', results[0].solution);
+});
+ 
+connection.end();
+
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
+
+
 
 // const express = require('express');
 // const ChatManager = require('./helpers/ChatManager');
