@@ -19,28 +19,28 @@ var config = {
             // password : '',
             // database : process.env.mysql_database,
             // charset  : 'utf8mb4'
-            host : '192.168.2.108',
-            user : 'root',
-            password : 'Pa$$w0rd1paydb',
+            host : '18.141.50.78',
+            user : 'ec2-user',
+            password : 'ZBbnjLLVdYCvJLPB',
             database : 'paychat-jarvis',
             charset: 'utf8mb4'
         },
         odin: {
-            host     : '192.168.2.108',
-            user     : 'root',
-            password : 'Pa$$w0rd1paydb',
+            host : '18.141.50.78',
+            user : 'ec2-user',
+            password : 'ZBbnjLLVdYCvJLPB',
             database : 'paychat-api'
         },
         heimdall: {
-            host     : '192.168.2.108',
-            user     : 'root',
-            password : 'Pa$$w0rd1paydb',
+            host : '18.141.50.78',
+            user : 'ec2-user',
+            password : 'ZBbnjLLVdYCvJLPB',
             database : 'heimdall'
         },
         hulk: {
-            host     : '192.168.2.108',
-            user     : 'root',
-            password : 'Pa$$w0rd1paydb',
+            host : '18.141.50.78',
+            user : 'ec2-user',
+            password : 'ZBbnjLLVdYCvJLPB',
             database : 'heimdall'
         }
     },
