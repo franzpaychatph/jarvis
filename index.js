@@ -17,14 +17,21 @@ var connection = mysql.createConnection({
     database : 'paychat-jarvis',
     charset: 'utf8mb4'
 });
- 
-connection.connect();
- 
-connection.query('SELECT 1 + 1 AS solution', function (error, results, fields) {
-  if(error) console.log(error);
-  console.log('The solution is: ', results[0].solution);
-  connection.end();
+
+connection.connect(function(err) {
+  if (err) {
+    console.error('error connecting: ', err);
+    return;
+  }
 });
+ 
+// connection.connect();
+ 
+// connection.query('SELECT 1 + 1 AS solution', function (error, results, fields) {
+//   if(error) console.log(error);
+//   console.log('The solution is: ', results[0].solution);
+//   connection.end();
+// });
 
 
 app.listen(port, () => {
