@@ -10,7 +10,7 @@ app.get('/', (req, res) => {
 
 
 // var connection = mysql.createConnection({
-//     port : 3306, 
+//     // port : 3306, 
 //     host : '18.141.50.78',
 //     user : 'ec2-user',
 //     password : 'ZBbnjLLVdYCvJLPB',
