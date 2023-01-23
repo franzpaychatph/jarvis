@@ -69,17 +69,17 @@ var api_srv_app = express();
 
 
 
-// Instantiate classes ----------------
-//FRANZ
-// global.clusterManager = new ClusterManager(cluster_io, config.instance_name);
-global.authenticationManager = new AuthenticationManager();
-global.clientManager = new ClientManager();
-global.databaseManager = new DatabaseManager();
-global.apiManager = new ApiManager();
-global.notificationManager = new NotificationManager();
-global.partnerManager = new PartnerManager();
+// // Instantiate classes ----------------
+// //FRANZ
+// // global.clusterManager = new ClusterManager(cluster_io, config.instance_name);
+// global.authenticationManager = new AuthenticationManager();
+// global.clientManager = new ClientManager();
+// global.databaseManager = new DatabaseManager();
+// global.apiManager = new ApiManager();
+// global.notificationManager = new NotificationManager();
+// global.partnerManager = new PartnerManager();
 global.chatMgr = new ChatManager(io);
-global.apiSrvManager = new APISrvManager(api_srv_app);
+// global.apiSrvManager = new APISrvManager(api_srv_app);
 
 
 //socket.io admin ui
