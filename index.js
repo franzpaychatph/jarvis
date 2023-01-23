@@ -9,21 +9,21 @@ app.get('/', (req, res) => {
 })
 
 
-var connection = mysql.createConnection({
-    port : 3306, 
-    host : '18.141.50.78',
-    user : 'ec2-user',
-    password : 'ZBbnjLLVdYCvJLPB',
-    database : 'paychat-jarvis',
-    charset: 'utf8mb4'
-});
+// var connection = mysql.createConnection({
+//     port : 3306, 
+//     host : '18.141.50.78',
+//     user : 'ec2-user',
+//     password : 'ZBbnjLLVdYCvJLPB',
+//     database : 'paychat-jarvis',
+//     charset: 'utf8mb4'
+// });
 
-connection.connect(function(err) {
-  if (err) {
-    console.error('error connecting: ', err);
-    return;
-  }
-});
+// connection.connect(function(err) {
+//   if (err) {
+//     console.error('error connecting: ', err);
+//     return;
+//   }
+// });
  
 // connection.connect();
  
