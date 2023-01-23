@@ -20,12 +20,11 @@ var connection = mysql.createConnection({
  
 connection.connect();
  
-// connection.query('SELECT 1 + 1 AS solution', function (error, results, fields) {
-//   if (error) throw error;
-//   console.log('The solution is: ', results[0].solution);
-// });
- 
-connection.end();
+connection.query('SELECT 1 + 1 AS solution', function (error, results, fields) {
+  if(err) console.log(err);
+  console.log('The solution is: ', results[0].solution);
+  connection.end();
+});
 
 
 app.listen(port, () => {
