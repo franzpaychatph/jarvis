@@ -2,8 +2,8 @@ require('dotenv').config();
 
 var config = {
     instance_name: process.env.instance_name,
-    port: process.env.port,
-    port_api: process.env.port_api,
+    port: 8081,
+    port_api: 1901,
     jobs: {
         delayed_message: true
     },
