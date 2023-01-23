@@ -20,6 +20,7 @@ var config = {
             // database : process.env.mysql_database,
             // charset  : 'utf8mb4'
             port : 3306, 
+            connectTimeout: 30000,
             host : '18.141.50.78',
             user : 'ec2-user',
             password : 'ZBbnjLLVdYCvJLPB',
@@ -28,6 +29,7 @@ var config = {
         },
         odin: {
             port : 3306, 
+            connectTimeout: 30000,
             host : '18.141.50.78',
             user : 'ec2-user',
             password : 'ZBbnjLLVdYCvJLPB',
@@ -35,6 +37,7 @@ var config = {
         },
         heimdall: {
             port : 3306, 
+            connectTimeout: 30000,
             host : '18.141.50.78',
             user : 'ec2-user',
             password : 'ZBbnjLLVdYCvJLPB',
@@ -42,6 +45,7 @@ var config = {
         },
         hulk: {
             port : 3306, 
+            connectTimeout: 30000,
             host : '18.141.50.78',
             user : 'ec2-user',
             password : 'ZBbnjLLVdYCvJLPB',
