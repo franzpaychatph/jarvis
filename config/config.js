@@ -14,11 +14,16 @@ var config = {
     },
     database: {
         main: {
-            host     : process.env.mysql_host,
-            user     : process.env.mysql_user,
-            password : '',
-            database : process.env.mysql_database,
-            charset  : 'utf8mb4'
+            // host     : process.env.mysql_host,
+            // user     : process.env.mysql_user,
+            // password : '',
+            // database : process.env.mysql_database,
+            // charset  : 'utf8mb4'
+            host : '192.168.2.108',
+            user : 'root',
+            password : 'Pa$$w0rd1paydb',
+            database : 'paychat-jarvis',
+            charset: 'utf8mb4'
         },
         odin: {
             host     : '192.168.2.108',
