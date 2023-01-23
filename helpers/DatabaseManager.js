@@ -15,9 +15,9 @@ class DatabaseManager {
         this.connString = config.database;
         this.conns = {
             main: mysql.createPool(_.connString.main),
-            // odin: mysql.createPool(_.connString.odin),
-            // hulk: mysql.createPool(_.connString.hulk),
-            // heimdall: mysql.createPool(_.connString.heimdall)
+            odin: mysql.createPool(_.connString.odin),
+            hulk: mysql.createPool(_.connString.hulk),
+            heimdall: mysql.createPool(_.connString.heimdall)
         };
         this.users = {
 
