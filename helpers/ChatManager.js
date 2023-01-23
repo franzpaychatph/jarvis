@@ -1300,28 +1300,28 @@ class ChatManager {
 
     sendDelayedMessages() {
         console.log('Sending Delayed messages! ' + moment().toString());
-        // var _ = this;
-        // global.databaseManager.messages.getDelayedMessages((res) => {
+        var _ = this;
+        global.databaseManager.messages.getDelayedMessages((res) => {
 
-        //   console.log(res);
+          console.log(res);
 
-        //   // process.exit();
+          // process.exit();
 
-        //   if (res.code == 200) {
-        //       res.results.data.forEach((msg) => {
-        //           var message = new ChatMessage(msg);
-        //           message.extra_type = 0;
-        //           message.date_created = moment().toDate();
-        //           delete message.extras.time;
-        //           delete message.extras.action;
+          if (res.code == 200) {
+              res.results.data.forEach((msg) => {
+                  var message = new ChatMessage(msg);
+                  message.extra_type = 0;
+                  message.date_created = moment().toDate();
+                  delete message.extras.time;
+                  delete message.extras.action;
 
 
-        //           _.sendMessageToUser(null, message.source, message.getMessageSent(), null);
-        //           _.sendMessageToUser(null, message.destination, message, message.isDRRequired() ? null : helpers.res(200, 'Delivered', message.getMessageDelivered()));
-        //           global.notificationManager.sendPush(message);
-        //       });
-        //   }
-        // });
+                  _.sendMessageToUser(null, message.source, message.getMessageSent(), null);
+                  _.sendMessageToUser(null, message.destination, message, message.isDRRequired() ? null : helpers.res(200, 'Delivered', message.getMessageDelivered()));
+                  global.notificationManager.sendPush(message);
+              });
+          }
+        });
     }
 
     // PCB FOR NOW

@@ -17,50 +17,50 @@ var fs = require( 'fs' );
 //FRANZ
 // var sslRootCAs = require('ssl-root-cas');
 
-var chat_srv_app = express();
+// var chat_srv_app = express();
 
-//FRANZ
-// sslRootCAs.inject();
-var io = null;
+// //FRANZ
+// // sslRootCAs.inject();
+// var io = null;
 
-// // Configure Chat Server Instance ------------------
-// if(config.port == 443 || config.port == 2053) {
-//     sslRootCAs.inject().addFile(config.certs.root);
-//     var chat_server = https.createServer({
-//         key: fs.readFileSync(config.certs.key),
-//         cert: fs.readFileSync(config.certs.cert),
-//         requestCert: false,
-//         rejectUnauthorized: false
-//     }, chat_srv_app);
-//     chat_server.listen(config.port);
-//     io = socket.listen(chat_server);
-//     console.log('Listening...');
-// } else {
-    var chat_server_unsecured = chat_srv_app.listen(config.port, () => {
-    });      
-    io = socket(chat_server_unsecured, {
-        allowEIO3: true,
-        cors: {
-          origin: ['https://admin.socket.io', 'http://localhost', 'http://localhost:3000', 'https://chatserver.paychat.ph'],
-          credentials: true
-        }
-    });
-    console.log('Listening (unsecured)...');
-// }
+// // // Configure Chat Server Instance ------------------
+// // if(config.port == 443 || config.port == 2053) {
+// //     sslRootCAs.inject().addFile(config.certs.root);
+// //     var chat_server = https.createServer({
+// //         key: fs.readFileSync(config.certs.key),
+// //         cert: fs.readFileSync(config.certs.cert),
+// //         requestCert: false,
+// //         rejectUnauthorized: false
+// //     }, chat_srv_app);
+// //     chat_server.listen(config.port);
+// //     io = socket.listen(chat_server);
+// //     console.log('Listening...');
+// // } else {
+//     var chat_server_unsecured = chat_srv_app.listen(config.port, () => {
+//     });      
+//     io = socket(chat_server_unsecured, {
+//         allowEIO3: true,
+//         cors: {
+//           origin: ['https://admin.socket.io', 'http://localhost', 'http://localhost:3000', 'https://chatserver.paychat.ph'],
+//           credentials: true
+//         }
+//     });
+//     console.log('Listening (unsecured)...');
+// // }
 
-//FRANZ
-// // Configure Cluster Server instance --------------
-// var cluster_srv_app = express();
-// var cluster_server = cluster_srv_app.listen(1400, () => {
-//     console.log('Cluster Listener started...');
-// });
-// var cluster_io = socket(cluster_server, {
-//     allowEIO3: true,
-//     cors: {
-//       origin: ['https://admin.socket.io', 'http://localhost', 'http://localhost:3000', 'https://chatserver.paychat.ph'],
-//       credentials: true
-//     }
-// });
+// //FRANZ
+// // // Configure Cluster Server instance --------------
+// // var cluster_srv_app = express();
+// // var cluster_server = cluster_srv_app.listen(1400, () => {
+// //     console.log('Cluster Listener started...');
+// // });
+// // var cluster_io = socket(cluster_server, {
+// //     allowEIO3: true,
+// //     cors: {
+// //       origin: ['https://admin.socket.io', 'http://localhost', 'http://localhost:3000', 'https://chatserver.paychat.ph'],
+// //       credentials: true
+// //     }
+// // });
 
 // Configure API Server Instance
 var api_srv_app = express();
