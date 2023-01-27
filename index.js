@@ -24,34 +24,31 @@ const ApiManager = require('./helpers/APIManager');
 const NotificationManager = require('./helpers/NotificationManager');
 const PartnerManager = require('./helpers/PartnerManager');
 const APISrvManager = require('./helpers/APISrvManager');
-//FRANZ
-// const https = require('https');
+const https = require('https');
 const socket = require('socket.io');
 const config = require('./config/config');
 const { instrument } = require('@socket.io/admin-ui');
 var fs = require( 'fs' );
-//FRANZ
-// var sslRootCAs = require('ssl-root-cas');
+var sslRootCAs = require('ssl-root-cas');
 
 var chat_srv_app = express();
 
-//FRANZ
-// sslRootCAs.inject();
+sslRootCAs.inject();
 var io = null;
 
-// // Configure Chat Server Instance ------------------
-// if(config.port == 443 || config.port == 2053) {
-//     sslRootCAs.inject().addFile(config.certs.root);
-//     var chat_server = https.createServer({
-//         key: fs.readFileSync(config.certs.key),
-//         cert: fs.readFileSync(config.certs.cert),
-//         requestCert: false,
-//         rejectUnauthorized: false
-//     }, chat_srv_app);
-//     chat_server.listen(config.port);
-//     io = socket.listen(chat_server);
-//     console.log('Listening...');
-// } else {
+// Configure Chat Server Instance ------------------
+if(config.port == 443 || config.port == 8443) {
+    sslRootCAs.inject().addFile(config.certs.root);
+    var chat_server = https.createServer({
+        key: fs.readFileSync(config.certs.key),
+        cert: fs.readFileSync(config.certs.cert),
+        requestCert: false,
+        rejectUnauthorized: false
+    }, chat_srv_app);
+    chat_server.listen(config.port);
+    io = socket.listen(chat_server);
+    console.log(`Listening... ${config.port}`);
+} else {
     var chat_server_unsecured = chat_srv_app.listen(config.port, () => {
     });      
     io = socket(chat_server_unsecured, {
@@ -62,7 +59,7 @@ var io = null;
         }
     });
     console.log(`Listening (unsecured ${config.port})...`);
-// }
+}
 
 //FRANZ
 // // Configure Cluster Server instance --------------
