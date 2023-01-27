@@ -390,7 +390,7 @@ class APISrvManager {
         });
 
         _.app_srv.listen(config.port_api, () => {
-            console.log('API Server Started');
+            console.log(`API Server Started ${config.port_api}`);
         });
 
     }
