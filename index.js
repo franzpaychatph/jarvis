@@ -24,8 +24,7 @@ const ApiManager = require('./helpers/APIManager');
 const NotificationManager = require('./helpers/NotificationManager');
 const PartnerManager = require('./helpers/PartnerManager');
 const APISrvManager = require('./helpers/APISrvManager');
-//FRANZ
-// const https = require('https');
+const https = require('https');
 const socket = require('socket.io');
 const config = require('./config/config');
 const { instrument } = require('@socket.io/admin-ui');
@@ -48,7 +47,13 @@ if(config.port == 443 || config.port == 2053) {
         rejectUnauthorized: false
     }, chat_srv_app);
     chat_server.listen(config.port);
-    io = socket.listen(chat_server);
+    io = socket.listen(chat_server, {
+      allowEIO3: true,
+      cors: {
+        origin: ['https://admin.socket.io', 'http://localhost', 'http://localhost:3000', 'https://chatserver.paychat.ph'],
+        credentials: true
+      }
+    });
     console.log('Listening...');
 } else {
     var chat_server_unsecured = chat_srv_app.listen(config.port, () => {
