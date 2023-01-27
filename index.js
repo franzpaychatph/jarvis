@@ -29,7 +29,8 @@ const socket = require('socket.io');
 const config = require('./config/config');
 const { instrument } = require('@socket.io/admin-ui');
 var fs = require( 'fs' );
-var sslRootCAs = require('ssl-root-cas');
+//FRANZ
+// var sslRootCAs = require('ssl-root-cas');
 
 var chat_srv_app = express();
 
@@ -38,12 +39,14 @@ var io = null;
 
 // Configure Chat Server Instance ------------------
 if(config.port == 443 || config.port == 8443) {
-    sslRootCAs.inject().addFile(config.certs.root);
+    //FRANZ
+    // sslRootCAs.inject().addFile(config.certs.root);
     var chat_server = https.createServer({
         key: fs.readFileSync(config.certs.key),
         cert: fs.readFileSync(config.certs.cert),
-        requestCert: false,
-        rejectUnauthorized: false
+        ca: fs.readFileSync(config.certs.root),
+        // requestCert: false,
+        // rejectUnauthorized: false
     }, chat_srv_app);
     chat_server.listen(config.port);
     io = socket.listen(chat_server);

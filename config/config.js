@@ -8,9 +8,9 @@ var config = {
         delayed_message: true
     },
     certs: {
-        cert: './ssl/paychatph.crt',
-        key: './ssl/paychatph.key',
-        root: './ssl/cf_root.pem'
+        cert: '../ssl/paychatph.crt',
+        key: '../ssl/paychatph.key',
+        root: '../ssl/cf_root.pem'
     },
     database: {
         main: {
