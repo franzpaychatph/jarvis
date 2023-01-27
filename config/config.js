@@ -2,15 +2,15 @@ require('dotenv').config();
 
 var config = {
     instance_name: process.env.instance_name,
-    port: process.env.PORT || 8888,
+    port: process.env.PORT || 8443,
     port_api: 8889,
     jobs: {
         delayed_message: true
     },
     certs: {
-        cert: '../ssl/paychatph.crt',
-        key: '../ssl/paychatph.key',
-        root: '../ssl/cf_root.pem'
+        cert: './ssl/paychatph.crt',
+        key: './ssl/paychatph.key',
+        root: './ssl/cf_root.pem'
     },
     database: {
         main: {
