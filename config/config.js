@@ -10,7 +10,7 @@ var config = {
     certs: {
         cert: '/home/ec2-user/paychatph.crt',
         key: '/home/ec2-user/paychatph.key',
-        root: '/home/ec2-user/cf_root.pem'
+        root: '/home/ec2-user/cf_root_j.pem'
     },
     database: {
         main: {
