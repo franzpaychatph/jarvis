@@ -53,7 +53,7 @@ if(config.port == 443 || config.port == 8443) {
     io = socket(chat_server, {
         allowEIO3: true,
         cors: {
-          origin: ['https://admin.socket.io', 'http://localhost', 'http://localhost:3000', 'https://chatserver.paychat.ph', 'https://chatserver.paychat.ph:8443'],
+          origin: ['https://admin.socket.io', 'http://localhost', 'http://localhost:3000', 'https://chatserver.paychat.ph', 'https://chatserver.paychat.ph:'+config.port],
           credentials: true
         }
     });
@@ -64,7 +64,7 @@ if(config.port == 443 || config.port == 8443) {
     io = socket(chat_server_unsecured, {
         allowEIO3: true,
         cors: {
-          origin: ['https://admin.socket.io', 'http://localhost', 'http://localhost:3000', 'https://chatserver.paychat.ph', 'https://chatserver.paychat.ph:8443'],
+          origin: ['https://admin.socket.io', 'http://localhost', 'http://localhost:3000', 'https://chatserver.paychat.ph', 'https://chatserver.paychat.ph:'+config.port],
           credentials: true
         }
     });
