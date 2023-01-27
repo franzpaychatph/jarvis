@@ -19,8 +19,8 @@ var config = {
             // password : '',
             // database : process.env.mysql_database,
             // charset  : 'utf8mb4'
-            port : 3306, 
-            connectTimeout: 30000,
+            // port : 3306, 
+            // connectTimeout: 30000,
             host : '192.168.2.108',
             user : 'ec2-user',
             password : 'ZBbnjLLVdYCvJLPB',
@@ -28,24 +28,24 @@ var config = {
             charset: 'utf8mb4'
         },
         odin: {
-            port : 3306, 
-            connectTimeout: 30000,
+            // port : 3306, 
+            // connectTimeout: 30000,
             host : '192.168.2.108',
             user : 'ec2-user',
             password : 'ZBbnjLLVdYCvJLPB',
             database : 'paychat-api'
         },
         heimdall: {
-            port : 3306, 
-            connectTimeout: 30000,
+            // port : 3306, 
+            // connectTimeout: 30000,
             host : '192.168.2.108',
             user : 'ec2-user',
             password : 'ZBbnjLLVdYCvJLPB',
             database : 'heimdall'
         },
         hulk: {
-            port : 3306, 
-            connectTimeout: 30000,
+            // port : 3306, 
+            // connectTimeout: 30000,
             host : '192.168.2.108',
             user : 'ec2-user',
             password : 'ZBbnjLLVdYCvJLPB',
