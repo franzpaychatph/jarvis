@@ -46,14 +46,14 @@ if(config.port == 443 || config.port == 8443) {
         key: fs.readFileSync(config.certs.key),
         cert: fs.readFileSync(config.certs.cert),
         ca: fs.readFileSync(config.certs.root),
-        // requestCert: false,
-        // rejectUnauthorized: false
+        requestCert: false,
+        rejectUnauthorized: false
     }, chat_srv_app);
     chat_server.listen(config.port);
     io = socket(chat_server, {
         allowEIO3: true,
         cors: {
-          origin: ['https://admin.socket.io', 'http://localhost', 'http://localhost:3000', 'https://chatserver.paychat.ph', 'https://chatserver.paychat.ph:8889'],
+          origin: ['https://admin.socket.io', 'http://localhost', 'http://localhost:3000', 'https://chatserver.paychat.ph', 'https://chatserver.paychat.ph:8443'],
           credentials: true
         }
     });
@@ -64,7 +64,7 @@ if(config.port == 443 || config.port == 8443) {
     io = socket(chat_server_unsecured, {
         allowEIO3: true,
         cors: {
-          origin: ['https://admin.socket.io', 'http://localhost', 'http://localhost:3000', 'https://chatserver.paychat.ph', 'https://chatserver.paychat.ph:8889'],
+          origin: ['https://admin.socket.io', 'http://localhost', 'http://localhost:3000', 'https://chatserver.paychat.ph', 'https://chatserver.paychat.ph:8443'],
           credentials: true
         }
     });
