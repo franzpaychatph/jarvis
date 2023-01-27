@@ -50,7 +50,13 @@ if(config.port == 443 || config.port == 8443) {
         // rejectUnauthorized: false
     }, chat_srv_app);
     chat_server.listen(config.port);
-    io = socket.listen(chat_server);
+    io = socket(chat_server, {
+        allowEIO3: true,
+        cors: {
+          origin: ['https://admin.socket.io', 'http://localhost', 'http://localhost:3000', 'https://chatserver.paychat.ph', 'https://chatserver.paychat.ph:8889'],
+          credentials: true
+        }
+    });
     console.log(`Listening... ${config.port}`);
 } else {
     var chat_server_unsecured = chat_srv_app.listen(config.port, () => {
