@@ -1,7 +1,7 @@
 require('dotenv').config();
 
 var config = {
-    instance_name: process.env.instance_name,
+    instance_name: 'pc_sockets',
     port: process.env.PORT || 8443,
     port_api: 8889,
     jobs: {
