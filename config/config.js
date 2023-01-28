@@ -14,42 +14,29 @@ var config = {
     },
     database: {
         main: {
-            // host     : process.env.mysql_host,
-            // user     : process.env.mysql_user,
-            // password : '',
-            // database : process.env.mysql_database,
-            // charset  : 'utf8mb4'
-            port : 3306, 
-            connectTimeout: 60000,
-            host : '192.168.2.108',
-            user : 'ec2-user',
-            password : 'Pa$$w0rd1paydb',
+            host     : 'localhost',
+            user     : 'root',
+            password : 'ZBbnjLLVdYCvJLPB',
             database : 'paychat-jarvis',
-            charset: 'utf8mb4'
+            charset : 'utf8mb4'
         },
         odin: {
-            port : 3306, 
-            connectTimeout: 60000,
-            host : '192.168.2.108',
-            user : 'ec2-user',
-            password : 'Pa$$w0rd1paydb',
-            database : 'paychat-api'
+            host     : 'localhost',
+            user     : 'root',
+            password : 'ZBbnjLLVdYCvJLPB',
+            database : 'paychat-api-debbie'
         },
         heimdall: {
-            port : 3306, 
-            connectTimeout: 60000,
-            host : '192.168.2.108',
-            user : 'ec2-user',
-            password : 'Pa$$w0rd1paydb',
+            host     : 'localhost',
+            user     : 'root',
+            password : 'ZBbnjLLVdYCvJLPB',
             database : 'heimdall'
         },
         hulk: {
-            port : 3306, 
-            connectTimeout: 60000,
-            host : '192.168.2.108',
-            user : 'ec2-user',
-            password : 'Pa$$w0rd1paydb',
-            database : 'heimdall'
+            host     : 'localhost',
+            user     : 'root',
+            password : 'ZBbnjLLVdYCvJLPB',
+            database : 'hulk'
         }
     },
     endpoints: {
