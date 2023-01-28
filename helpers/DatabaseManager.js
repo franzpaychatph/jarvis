@@ -2,7 +2,7 @@
 
 
 const helpers = require('../helpers/Helpers');
-const mysql = require('mysql2');
+const mysql = require('mysql');
 const config = require('../config/config');
 const ChatMessage = require('../models/ChatMessage');
 const Client = require('../models/Client');
