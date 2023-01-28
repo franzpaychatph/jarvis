@@ -29,6 +29,28 @@ const socket = require('socket.io');
 const config = require('./config/config');
 const { instrument } = require('@socket.io/admin-ui');
 var fs = require( 'fs' );
+
+// get the client
+const mysql = require('mysql2');
+
+// create the connection to database
+const connection = mysql.createConnection({
+  host: config.database.main.host,
+  user: config.database.main.user,
+  database: config.database.main.database,
+});
+
+// simple query
+connection.query(
+  'SELECT 1',
+  function(err, results, fields) {
+    console.log(err); // results contains err returned by server
+    console.log(results); // results contains rows returned by server
+    console.log(fields); // fields contains extra meta data about results, if available
+  }
+);
+
+
 //FRANZ
 // var sslRootCAs = require('ssl-root-cas');
 
