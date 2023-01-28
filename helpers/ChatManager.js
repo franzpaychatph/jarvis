@@ -50,6 +50,7 @@ class ChatManager {
             // const get_all_sockets = _.socketio_connection.fetchSockets();
             // console.log(get_all_sockets.length);
             console.log("Connected: " + socket.id);
+            _.sendDelayedMessages();
 
         });
 
@@ -75,7 +76,7 @@ class ChatManager {
 
         if (config.jobs.delayed_message) {
             _.jobs = [];
-            var ruleMinutes = [1,2];// [0, 15, 30, 45];
+            var ruleMinutes = [1, 2];// [0, 15, 30, 45];
 
             ruleMinutes.forEach(minute => {
                 var rule = new schedule.RecurrenceRule();
