@@ -3,7 +3,7 @@ require('dotenv').config();
 var config = {
     instance_name: 'pc_sockets',
     port: process.env.PORT || 8443,
-    port_api: 8889,
+    port_api: 8080,
     jobs: {
         delayed_message: true
     },
