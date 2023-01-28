@@ -38,6 +38,10 @@ const connection = mysql.createConnection({
   host: config.database.main.host,
   user: config.database.main.user,
   database: config.database.main.database,
+  connectTimeout: 10000,
+  acquireTimeout: 10000,
+  waitForConnections:true,
+  queueLimit: 0
 });
 
 // simple query
