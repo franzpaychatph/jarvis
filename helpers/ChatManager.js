@@ -65,7 +65,7 @@ class ChatManager {
                     client.socket.disconnect();
                 }
             });
-            _.socketio_connection.clients.length;
+            // _.socketio_connection.clients.length;
             console.log(' === End of list ===');
 
             _.ack_history = _.ack_history.filter(x => { return moment().diff(moment(x.ack_date), 'minutes') < 5; });
