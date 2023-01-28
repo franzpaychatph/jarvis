@@ -26,26 +26,26 @@ class ChatManager {
 
         _.socketio_connection.on('connect', (socket) => {
             //FRANZ
-            // var authTimeOut = setTimeout(() => {
-            //     socket.disconnect();
-            //     console.log('Client auth timeout, disconnected');
-            // }, 15000);
+            var authTimeOut = setTimeout(() => {
+                socket.disconnect();
+                console.log('Client auth timeout, disconnected');
+            }, 15000);
 
-            // socket.on('auth', (data) => this.authenticate(socket, data, authTimeOut, (authResponse, authTimeOut1)=> {
-            //     clearTimeout(authTimeOut1);
-            //     console.log("Auth Response :" + authResponse.code + " on " + authResponse.ua_number);
-            //     if(authResponse.code != 200) {
-            //         socket.disconnect();
-            //     }
-            // }));
+            socket.on('auth', (data) => this.authenticate(socket, data, authTimeOut, (authResponse, authTimeOut1)=> {
+                clearTimeout(authTimeOut1);
+                console.log("Auth Response :" + authResponse.code + " on " + authResponse.ua_number);
+                if(authResponse.code != 200) {
+                    socket.disconnect();
+                }
+            }));
 
-            // socket.on('authorize', (data) => this.authenticate(socket, data, authTimeOut, (authResponse, authTimeOut1)=> {
-            //     clearTimeout(authTimeOut1);
-            //     console.log("Auth Response :" + authResponse.code + " on " + authResponse.ua_number);
-            //     if(authResponse.code != 200) {
-            //         socket.disconnect();
-            //     }
-            // }));
+            socket.on('authorize', (data) => this.authenticate(socket, data, authTimeOut, (authResponse, authTimeOut1)=> {
+                clearTimeout(authTimeOut1);
+                console.log("Auth Response :" + authResponse.code + " on " + authResponse.ua_number);
+                if(authResponse.code != 200) {
+                    socket.disconnect();
+                }
+            }));
 
             // const get_all_sockets = _.socketio_connection.fetchSockets();
             // console.log(get_all_sockets.length);
@@ -53,25 +53,25 @@ class ChatManager {
 
         });
 
-        // FRANZ
-        // setInterval(() => {
-        //     console.log(' === Connected users ===');
-        //     global.clientManager.client_list.forEach((client) => {
-        //         console.log(client.ua_number);
+        //FRANZ
+        setInterval(() => {
+            console.log(' === Connected users ===');
+            global.clientManager.client_list.forEach((client) => {
+                console.log(client.ua_number);
 
-        //         if(moment().diff(moment(client.last_ping), 'minutes') >= 1) {
-        //             console.log(client.ua_number + ' timed out, disengaged!');
-        //             global.clientManager.removeBySocket(client.socket.id);
-        //             client.socket.disconnect();
-        //         }
-        //     });
-        //     _.socketio_connection.clients.length;
-        //     console.log(' === End of list ===');
+                if(moment().diff(moment(client.last_ping), 'minutes') >= 1) {
+                    console.log(client.ua_number + ' timed out, disengaged!');
+                    global.clientManager.removeBySocket(client.socket.id);
+                    client.socket.disconnect();
+                }
+            });
+            _.socketio_connection.clients.length;
+            console.log(' === End of list ===');
 
-        //     _.ack_history = _.ack_history.filter(x => { return moment().diff(moment(x.ack_date), 'minutes') < 5; });
-        //     console.log('ack count: ', _.ack_history.length);
+            _.ack_history = _.ack_history.filter(x => { return moment().diff(moment(x.ack_date), 'minutes') < 5; });
+            console.log('ack count: ', _.ack_history.length);
 
-        // }, 10000);
+        }, 10000);
 
         if (config.jobs.delayed_message) {
             _.jobs = [];
