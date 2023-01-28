@@ -23,7 +23,7 @@ var config = {
             connectTimeout: 60000,
             host : '192.168.2.108',
             user : 'ec2-user',
-            password : 'ZBbnjLLVdYCvJLPB',
+            password : 'Pa$$w0rd1paydb',
             database : 'paychat-jarvis',
             charset: 'utf8mb4'
         },
@@ -32,7 +32,7 @@ var config = {
             connectTimeout: 60000,
             host : '192.168.2.108',
             user : 'ec2-user',
-            password : 'ZBbnjLLVdYCvJLPB',
+            password : 'Pa$$w0rd1paydb',
             database : 'paychat-api'
         },
         heimdall: {
@@ -40,7 +40,7 @@ var config = {
             connectTimeout: 60000,
             host : '192.168.2.108',
             user : 'ec2-user',
-            password : 'ZBbnjLLVdYCvJLPB',
+            password : 'Pa$$w0rd1paydb',
             database : 'heimdall'
         },
         hulk: {
@@ -48,7 +48,7 @@ var config = {
             connectTimeout: 60000,
             host : '192.168.2.108',
             user : 'ec2-user',
-            password : 'ZBbnjLLVdYCvJLPB',
+            password : 'Pa$$w0rd1paydb',
             database : 'heimdall'
         }
     },
