@@ -19,6 +19,7 @@
     "moment": "*",
     "multer": "*",
     "mysql": "*",
+    "mysql2": "^3.0.1",
     "node-schedule": "*",
     "request": "*",
     "socket.io": "*",
