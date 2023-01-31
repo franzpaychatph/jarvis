@@ -39,11 +39,11 @@ const connection = mysql.createConnection({
   user: config.database.main.user,
   password: config.database.main.password,
   host: config.database.main.host,
-  database: config.database.main.database
+  database: config.database.main.database,
   // connectTimeout: 10000,
   // acquireTimeout: 10000,
   // waitForConnections:true,
-  // socketPath: '/var/lib/mysql/mysql.sock'
+  socketPath: '/var/lib/mysql/mysql.sock'
 });
 
 // simple query
