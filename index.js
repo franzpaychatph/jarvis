@@ -31,7 +31,7 @@ const { instrument } = require('@socket.io/admin-ui');
 var fs = require( 'fs' );
 
 // get the client
-const mysql = require('mysql2');
+const mysql = require('mysql');
 
 // create the connection to database
 const connection = mysql.createConnection({
@@ -39,7 +39,7 @@ const connection = mysql.createConnection({
   user: config.database.main.user,
   password: config.database.main.password,
   host: config.database.main.host,
-  database: config.database.main.database,
+  database: config.database.main.database
   // connectTimeout: 10000,
   // acquireTimeout: 10000,
   // waitForConnections:true,
