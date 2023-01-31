@@ -41,8 +41,7 @@ const connection = mysql.createConnection({
   // connectTimeout: 10000,
   // acquireTimeout: 10000,
   // waitForConnections:true,
-  socketPath: '/var/lib/mysql/mysql.sock',
-
+  socketPath: '/var/lib/mysql/mysql.sock'
 });
 
 // simple query
