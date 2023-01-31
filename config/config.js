@@ -14,26 +14,26 @@ var config = {
     },
     database: {
         main: {
-            host     : 'localhost',
+            host     : '127.0.0.1',
             user     : 'root',
             password : 'ZBbnjLLVdYCvJLPB',
             database : 'paychat-jarvis',
             charset : 'utf8mb4'
         },
         odin: {
-            host     : 'localhost',
+            host     : '127.0.0.1',
             user     : 'root',
             password : 'ZBbnjLLVdYCvJLPB',
             database : 'paychat-api-debbie'
         },
         heimdall: {
-            host     : 'localhost',
+            host     : '127.0.0.1',
             user     : 'root',
             password : 'ZBbnjLLVdYCvJLPB',
             database : 'heimdall'
         },
         hulk: {
-            host     : 'localhost',
+            host     : '127.0.0.1',
             user     : 'root',
             password : 'ZBbnjLLVdYCvJLPB',
             database : 'hulk'
