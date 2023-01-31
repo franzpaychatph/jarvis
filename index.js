@@ -31,7 +31,7 @@ const { instrument } = require('@socket.io/admin-ui');
 var fs = require( 'fs' );
 
 // get the client
-const mysql = require('mysql');
+const mysql = require('mysql2');
 
 // create the connection to database
 const connection = mysql.createConnection({
