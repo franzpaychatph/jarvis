@@ -67,7 +67,7 @@ var chat_srv_app = express();
 var io = null;
 
 // Configure Chat Server Instance ------------------
-if(config.port == 443 || config.port == 8443) {
+if(config.port == 443 || config.port == 8443 || config.port == 3000) {
     //FRANZ
     // sslRootCAs.inject().addFile(config.certs.root);
     var chat_server = https.createServer({
