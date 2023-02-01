@@ -2,9 +2,8 @@ require('dotenv').config();
 
 var config = {
     instance_name: 'PCNODEWEBO1',
-    port: process.env.PORT || 3000, //8443
-    port_cluster: 1400, 
-    port_api: 1900, //8080
+    port: process.env.PORT || 8443,
+    port_api: 8080,
     jobs: {
         delayed_message: true
     },
