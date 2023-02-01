@@ -40,8 +40,10 @@ var config = {
         }
     },
     endpoints: {
-        hydra: 'http://192.168.2.107/webroot/hydra',
-        heimdall: 'http://192.168.2.107/webroot/heimdall',
+        // hydra: 'http://192.168.2.107/webroot/hydra',
+        // heimdall: 'http://192.168.2.107/webroot/heimdall',
+        hydra: 'https://devh.paychat.ph',
+        heimdall: 'https://devheimdall.paychat.ph',
         hulk: '',
         odin: ''
     },
