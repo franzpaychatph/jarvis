@@ -50,7 +50,6 @@ class ChatManager {
             // const get_all_sockets = _.socketio_connection.fetchSockets();
             // console.log(get_all_sockets.length);
             console.log("Connected: " + socket.id);
-            _.sendDelayedMessages();
 
         });
 
