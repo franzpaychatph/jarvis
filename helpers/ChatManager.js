@@ -1062,6 +1062,7 @@ class ChatManager {
 
                         console.log('FRANZ');
                         console.log(JSON.stringify(chat_message));
+                        console.log(JSON.stringify(ackObject));
 
 
                     }, 5000);
