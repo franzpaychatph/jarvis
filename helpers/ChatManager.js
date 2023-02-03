@@ -486,9 +486,13 @@ class ChatManager {
                         _.sendMessageToUser(c, chat_message.destination, chat_message, !chat_message.isDRRequired() ? null : helpers.res(200, 'Delivered', chat_message.getMessageDelivered()));
 
                         //FRANZ: added c.client_type == 1 for realtime chat bubble (send / request linked account)
-                        //original: if(c.client_type == 2) {
-                        //updated to: if(c.client_type == 2 || c.client_type == 1) {
-                        if(c.client_type == 2 || c.client_type == 1) {
+                        if(c.client_type == 1) {
+                            chat_message.is_incoming = 0;
+                            global.databaseManager.messages.add(chat_message, c, () => {});
+                            c.socket.emit('message', helpers.res(200, 'Sent', chat_message.getMessageSent()));
+                        }
+
+                        if(c.client_type == 2) {
                             chat_message.is_incoming = 0;
                             global.databaseManager.messages.add(chat_message, c, () => {});
                             // _.sendMessageToPCB(null, c.pcb_ua_number, chat_message.getMessageSentPCB());
@@ -499,6 +503,10 @@ class ChatManager {
 
 
                         if(chat_message.isPushRequired()) {
+
+                            //FRANZ: added c.client_type == 1 for realtime chat bubble (send / request linked account)
+                            if(c.client_type == 1)
+                            chat_message.source = c.pcb_ua_number ;
 
                             if(c.client_type == 2)
                             chat_message.source = c.pcb_ua_number ;
