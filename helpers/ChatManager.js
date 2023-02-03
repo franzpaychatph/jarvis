@@ -1060,6 +1060,9 @@ class ChatManager {
                                 global.databaseManager.messages.addOffline(chat_message);
                         }
 
+                        console.log('FRANZ');
+                        console.log(JSON.stringify(chat_message));
+
 
                     }, 5000);
                 }
