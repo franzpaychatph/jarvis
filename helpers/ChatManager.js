@@ -1261,8 +1261,8 @@ class ChatManager {
               {
                 case 1:
 
-                    targetClient.socket.emit('message', helpers.res(200, '', chat_message));
-                break;
+                //     targetClient.socket.emit('message', helpers.res(200, '', chat_message));
+                // break;
 
                 case 2:
 
