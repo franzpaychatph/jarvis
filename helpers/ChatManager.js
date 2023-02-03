@@ -460,201 +460,192 @@ class ChatManager {
 
             switch(chat_message.client_type) { //destination client_type
 
-                case 1: //to PC_USER or Backoffice
+            case 1: //to PC_USER or Backoffice
 
-                    chat_message.is_incoming = 0;
-                    //do not accept if message came from guest
-                    if(c.client_type == 4)
-                        return;
+                chat_message.is_incoming = 0;
+                //do not accept if message came from guest
+                if(c.client_type == 4)
+                    return;
 
-                    if (chat_message.isDRRequired()) { // SEEN
-                        c.socket.emit('message', helpers.res(200, 'Sent', chat_message.getMessageSent()));
-                    }
-
-                    chat_message.is_incoming = 1;
-                    if (chat_message.chat_type == 11) { // SEEN
-                        global.databaseManager.messages.setSeen(chat_message.destination, chat_message.source, chat_message.date_created);
-                    }
-
-
-                    switch (chat_message.extra_type) {
-                    case ChatMessage.EXTRA_TYPE.DELAYED:
-                        _.processDelayedChat(chat_message);
-                        break;
-                    default:
-
-                        _.sendMessageToUser(c, chat_message.destination, chat_message, !chat_message.isDRRequired() ? null : helpers.res(200, 'Delivered', chat_message.getMessageDelivered()));
-
-                        //FRANZ: added c.client_type == 1 for realtime chat bubble (send / request linked account)
-                        if(c.client_type == 1) {
-                            chat_message.is_incoming = 0;
-                            global.databaseManager.messages.add(chat_message, c, () => {});
-                            c.socket.emit('message', helpers.res(200, 'Sent', chat_message.getMessageSent()));
-                        }
-
-                        if(c.client_type == 2) {
-                            chat_message.is_incoming = 0;
-                            global.databaseManager.messages.add(chat_message, c, () => {});
-                            // _.sendMessageToPCB(null, c.pcb_ua_number, chat_message.getMessageSentPCB());
-
-                            // _.sendMessageToPCBUser(c, chat_message.destination, chat_message, orig_source);
-                            c.socket.emit('message', helpers.res(200, 'Sent', chat_message.getMessageSent()));
-                        }
-
-
-                        if(chat_message.isPushRequired()) {
-
-                            //FRANZ: added c.client_type == 1 for realtime chat bubble (send / request linked account)
-                            if(c.client_type == 1)
-                            chat_message.source = c.pcb_ua_number ;
-
-                            if(c.client_type == 2)
-                            chat_message.source = c.pcb_ua_number ;
-
-                            global.notificationManager.sendPush(chat_message);
-                        }
-
-                        break;
-
-                    }
-
-                break;
-                case 2: //TO PCB_USER
-
-                    if (c.client_type == 4) {
-                        chat_message.extras.tag = 15;
-                    }
-
-                    if(chat_message.is_pcb == 1) {
-                        chat_message.setSource(data.source);
-                    }
-
-                    if(chat_message.chat_type == 11){ // SEEN
-                        // chat_message.setSource(orig_source);
-                        // chat_message.message = "Seen";
-                        // console.log(helpers.res(200, 'Sent', chat_message.getMessageSent()))
-                        // console.log("helpers.res(200, 'Sent', chat_message.getMessageSent())")
-                        global.databaseManager.conversations.setSeenPcb(chat_message.destination);
-                        global.clientManager.getByUaNumber(chat_message.destination).forEach((targetClient) => {
-                        // targetClient.socket.emit('message', chat_message);
-                        targetClient.socket.emit('message', helpers.res(200, 'Sent', chat_message));
-                        });
-                        return true;
-                    }
-
-                    // NORMAL
-                    _.sendMessageToPCBUser(c, chat_message.destination, chat_message);
+                if (chat_message.isDRRequired()) { // SEEN
                     c.socket.emit('message', helpers.res(200, 'Sent', chat_message.getMessageSent()));
+                }
 
-                break;
-                case 3: //TO PC_GROUP
-                    //do not accept if message came from guest
-                    if(c.client_type != 1)
-                        return;
-
-
-                    chat_message.extras.source = c.ua_number;
-                    chat_message.setSource(chat_message.destination);
-                    // chat_message.setSource(orig_source);
+                chat_message.is_incoming = 1;
+                if (chat_message.chat_type == 11) { // SEEN
+                    global.databaseManager.messages.setSeen(chat_message.destination, chat_message.source, chat_message.date_created);
+                }
 
 
-                    // global.databaseManager.chat_groups.getMembers(orig_source, (members) => {
-                    global.databaseManager.chat_groups.getMembers(chat_message.destination, (members) => {
-
-                        if(members.code == 200) {
-
-                            if(members.results.data.filter((x) => { return x.ua_number == c.ua_number; }).length == 0) {
-                                c.socket.emit('message', helpers.res(500, 'Error', {
-                                    message_id: chat_message.message_id,
-                                    source: chat_message.source,
-                                    message: 'You are not a member of this group',
-                                    destination: chat_message.destination,
-                                    date_created: chat_message.date_created,
-                                    extras: chat_message.extras,
-                                    client_type: 3,
-                                    chat_type: 9
-                                }));
-                                return;
-                            }
-
-
-                            members.results.data.forEach((member) => {
-
-                                if (chat_message.chat_type == 11) {
-                                    global.databaseManager.messages.setSeen(chat_message.destination, chat_message.source, chat_message.date_created);
-                                }
-
-                                chat_message.setDestination(member.ua_number);
-                                if(chat_message.destination == chat_message.extras.source)
-                                    return;
-
-                                switch(chat_message.extra_type) {
-                                case ChatMessage.EXTRA_TYPE.NONE:
-
-
-                                    _.sendMessageToUser(c, member.ua_number, chat_message, helpers.res(200, 'Delivered', chat_message.getMessageDelivered()));
-
-                                    if(chat_message.isPushRequired()){
-                                    global.notificationManager.sendPush(chat_message);
-                                    }
-                                    break;
-                                case ChatMessage.EXTRA_TYPE.DELAYED:
-                                    _.processDelayedChat(chat_message);
-                                    break;
-                                }
-
-                            });
-                        } else {
-                            console.log('Members not found');
-                        }
-
-                        c.socket.emit('message', helpers.res(200, 'Sent', chat_message.getMessageSent()));
-
-
-
-                    });
-
-                    break;
-                case 4: //to ANONYMOUS USER
-
-                    chat_message.is_incoming = 0;
-                    // //do not accept if message doesnt ome from PCB
-                    // if(c.client_type != 1)
-                    //     return;
-
-                    //Allow certain chat types only
-                    var allowedChatTypes = [0, 9, 10, 11, 14];
-                    if (allowedChatTypes.indexOf(chat_message.chat_type) === -1) {
-                        return;
-                    }
-
-                    if (chat_message.isDRRequired()) {
-                        c.socket.emit('message', helpers.res(200, 'Sent', chat_message.getMessageSent()));
-                    }
-
-                    chat_message.is_incoming = 1;
-
-                    if (chat_message.chat_type == 11) {
-                        global.databaseManager.messages.setSeen(chat_message.destination, chat_message.source, chat_message.date_created);
-                    }
-
-                    _.sendMessageToUser(c, chat_message.destination, chat_message, !chat_message.isDRRequired() ? null : helpers.res(200, 'Delivered', chat_message.getMessageDelivered()));
-                    chat_message.is_incoming = 0;
-                    global.databaseManager.messages.add(chat_message, c, () => {});
-
-                    // if(chat_message.isPushRequired()) {
-                    //     global.notificationManager.sendPush(chat_message);
-                    // }
-
-                    break;
-
-
-
-
-
-
+                switch (chat_message.extra_type) {
+                case ChatMessage.EXTRA_TYPE.DELAYED:
+                    _.processDelayedChat(chat_message);
                     break;
                 default:
+
+                    _.sendMessageToUser(c, chat_message.destination, chat_message, !chat_message.isDRRequired() ? null : helpers.res(200, 'Delivered', chat_message.getMessageDelivered()));
+
+                    if(c.client_type == 2) {
+                        chat_message.is_incoming = 0;
+                        global.databaseManager.messages.add(chat_message, c, () => {});
+                        // _.sendMessageToPCB(null, c.pcb_ua_number, chat_message.getMessageSentPCB());
+
+                        // _.sendMessageToPCBUser(c, chat_message.destination, chat_message, orig_source);
+                        c.socket.emit('message', helpers.res(200, 'Sent', chat_message.getMessageSent()));
+                    }
+
+
+                    if(chat_message.isPushRequired()) {
+
+                        if(c.client_type == 2)
+                          chat_message.source = c.pcb_ua_number ;
+
+                        global.notificationManager.sendPush(chat_message);
+                    }
+
+                    break;
+
+                }
+
+            break;
+
+            case 2: //TO PCB_USER
+
+                if (c.client_type == 4) {
+                    chat_message.extras.tag = 15;
+                }
+
+                if(chat_message.is_pcb == 1) {
+                    chat_message.setSource(data.source);
+                }
+
+                if(chat_message.chat_type == 11){ // SEEN
+                    // chat_message.setSource(orig_source);
+                    // chat_message.message = "Seen";
+                    // console.log(helpers.res(200, 'Sent', chat_message.getMessageSent()))
+                    // console.log("helpers.res(200, 'Sent', chat_message.getMessageSent())")
+                    global.databaseManager.conversations.setSeenPcb(chat_message.destination);
+                    global.clientManager.getByUaNumber(chat_message.destination).forEach((targetClient) => {
+                      // targetClient.socket.emit('message', chat_message);
+                      targetClient.socket.emit('message', helpers.res(200, 'Sent', chat_message));
+                    });
+                    return true;
+                }
+
+                // NORMAL
+                _.sendMessageToPCBUser(c, chat_message.destination, chat_message);
+                c.socket.emit('message', helpers.res(200, 'Sent', chat_message.getMessageSent()));
+
+            break;
+
+            case 3: //TO PC_GROUP
+                //do not accept if message came from guest
+                if(c.client_type != 1)
+                    return;
+
+
+                chat_message.extras.source = c.ua_number;
+                chat_message.setSource(chat_message.destination);
+                // chat_message.setSource(orig_source);
+
+
+                // global.databaseManager.chat_groups.getMembers(orig_source, (members) => {
+                global.databaseManager.chat_groups.getMembers(chat_message.destination, (members) => {
+
+                    if(members.code == 200) {
+
+                        if(members.results.data.filter((x) => { return x.ua_number == c.ua_number; }).length == 0) {
+                            c.socket.emit('message', helpers.res(500, 'Error', {
+                                message_id: chat_message.message_id,
+                                source: chat_message.source,
+                                message: 'You are not a member of this group',
+                                destination: chat_message.destination,
+                                date_created: chat_message.date_created,
+                                extras: chat_message.extras,
+                                client_type: 3,
+                                chat_type: 9
+                            }));
+                            return;
+                        }
+
+
+                        members.results.data.forEach((member) => {
+
+                            if (chat_message.chat_type == 11) {
+                                global.databaseManager.messages.setSeen(chat_message.destination, chat_message.source, chat_message.date_created);
+                            }
+
+                            chat_message.setDestination(member.ua_number);
+                            if(chat_message.destination == chat_message.extras.source)
+                                return;
+
+                            switch(chat_message.extra_type) {
+                            case ChatMessage.EXTRA_TYPE.NONE:
+
+
+                                _.sendMessageToUser(c, member.ua_number, chat_message, helpers.res(200, 'Delivered', chat_message.getMessageDelivered()));
+
+                                if(chat_message.isPushRequired()){
+                                  global.notificationManager.sendPush(chat_message);
+                                }
+                                break;
+                            case ChatMessage.EXTRA_TYPE.DELAYED:
+                                _.processDelayedChat(chat_message);
+                                break;
+                            }
+
+                        });
+                    } else {
+                        console.log('Members not found');
+                    }
+
+                    c.socket.emit('message', helpers.res(200, 'Sent', chat_message.getMessageSent()));
+
+
+
+                });
+
+                break;
+            case 4: //to ANONYMOUS USER
+
+                chat_message.is_incoming = 0;
+                // //do not accept if message doesnt ome from PCB
+                // if(c.client_type != 1)
+                //     return;
+
+                //Allow certain chat types only
+                var allowedChatTypes = [0, 9, 10, 11, 14];
+                if (allowedChatTypes.indexOf(chat_message.chat_type) === -1) {
+                    return;
+                }
+
+                if (chat_message.isDRRequired()) {
+                    c.socket.emit('message', helpers.res(200, 'Sent', chat_message.getMessageSent()));
+                }
+
+                chat_message.is_incoming = 1;
+
+                if (chat_message.chat_type == 11) {
+                    global.databaseManager.messages.setSeen(chat_message.destination, chat_message.source, chat_message.date_created);
+                }
+
+                _.sendMessageToUser(c, chat_message.destination, chat_message, !chat_message.isDRRequired() ? null : helpers.res(200, 'Delivered', chat_message.getMessageDelivered()));
+                chat_message.is_incoming = 0;
+                global.databaseManager.messages.add(chat_message, c, () => {});
+
+                // if(chat_message.isPushRequired()) {
+                //     global.notificationManager.sendPush(chat_message);
+                // }
+
+                break;
+
+
+
+
+
+
+                break;
+            default:
 
                 break;
             }
