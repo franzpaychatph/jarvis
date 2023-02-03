@@ -74,7 +74,7 @@ class ChatManager {
 
         if (config.jobs.delayed_message) {
             _.jobs = [];
-            var ruleMinutes = [0,1];//[0, 15, 30, 45];
+            var ruleMinutes = [0, 15, 30, 45];
 
             ruleMinutes.forEach(minute => {
                 var rule = new schedule.RecurrenceRule();
