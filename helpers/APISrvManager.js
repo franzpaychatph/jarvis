@@ -353,6 +353,31 @@ class APISrvManager {
             global.notificationManager.sendPush(msg);
             global.chatMgr.sendMessageToUser(null, req.body.ua_number, msg, null);
             res.send(helpers.res(200, 'OK', {}));
+
+            //add
+            helpers.log('/chat/send_messge');
+            helpers.log(req.body);
+  
+            var client_type = req.body.client_type || 1;
+            var pcb_id = req.body.pcb_id || 0;
+            var is_pcb = req.body.is_pcb > 0 ?  1 : 0;
+  
+            var msg = {
+              source: req.body.source,
+              destination: req.body.ua_number,
+              message: req.body.message ,
+              message_id: helpers.rand(5),
+              client_type: Number(client_type),
+              is_pcb: is_pcb,
+              pcb_id: pcb_id,
+              chat_type: req.body.chat_type,
+              date_created: new Date(),
+              extras: JSON.parse(req.body.extras)
+            };
+  
+            global.chatMgr.sendChatMessage(req.body.source, req.body.ua_number, msg);
+            res.send(helpers.res(200, 'OK', {}));
+            
           }
 
         });
