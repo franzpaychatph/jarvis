@@ -498,9 +498,9 @@ class ChatManager {
                     if(chat_message.isPushRequired()) {
 
                         if(c.client_type == 2)
-                          chat_message.source = c.pcb_ua_number ;
+                            chat_message.source = c.pcb_ua_number ;
 
-                        global.notificationManager.sendPush(chat_message);
+                            global.notificationManager.sendPush(chat_message);
                     }
 
                     break;
