@@ -53,24 +53,24 @@ class ChatManager {
         });
 
         //FRANZ
-        // setInterval(() => {
-        //     console.log(' === Connected users ===');
-        //     global.clientManager.client_list.forEach((client) => {
-        //         console.log(client.ua_number);
+        setInterval(() => {
+            console.log(' === Connected users ===');
+            global.clientManager.client_list.forEach((client) => {
+                console.log(client.ua_number);
 
-        //         if(moment().diff(moment(client.last_ping), 'minutes') >= 1) {
-        //             console.log(client.ua_number + ' timed out, disengaged!');
-        //             global.clientManager.removeBySocket(client.socket.id);
-        //             client.socket.disconnect();
-        //         }
-        //     });
-        //     _.socketio_connection.clients.length;
-        //     console.log(' === End of list ===');
+                if(moment().diff(moment(client.last_ping), 'minutes') >= 1) {
+                    console.log(client.ua_number + ' timed out, disengaged!');
+                    global.clientManager.removeBySocket(client.socket.id);
+                    client.socket.disconnect();
+                }
+            });
+            // _.socketio_connection.clients.length;
+            console.log(' === End of list ===');
 
-        //     _.ack_history = _.ack_history.filter(x => { return moment().diff(moment(x.ack_date), 'minutes') < 5; });
-        //     console.log('ack count: ', _.ack_history.length);
+            _.ack_history = _.ack_history.filter(x => { return moment().diff(moment(x.ack_date), 'minutes') < 5; });
+            console.log('ack count: ', _.ack_history.length);
 
-        // }, 10000);
+        }, 10000);
 
         if (config.jobs.delayed_message) {
             _.jobs = [];
