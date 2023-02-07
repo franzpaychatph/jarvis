@@ -56,10 +56,10 @@ class ChatManager {
         setInterval(() => {
             console.log(' === Connected users ===');
             global.clientManager.client_list.forEach((client) => {
-                console.log(client.ua_number);
+                console.log(client.ua_number + ' = ' +client.socket.id);
 
                 if(moment().diff(moment(client.last_ping), 'minutes') >= 1) {
-                    console.log(client.ua_number + ' timed out, disengaged!');
+                    console.log(client.ua_number + ' = ' +client.socket.id+ ' timed out, disengaged!');
                     global.clientManager.removeBySocket(client.socket.id);
                     client.socket.disconnect();
                 }
