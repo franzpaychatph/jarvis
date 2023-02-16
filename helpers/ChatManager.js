@@ -23,12 +23,11 @@ class ChatManager {
 
     listen() {
         var _ = this;
+        _.socketio_connection.on('connect', (socket) => {
 
-        _.socketio_connection.on('connect', async (socket) => {
-            //FRANZ
             var authTimeOut = setTimeout(() => {
-                // socket.disconnect();
-                // console.log('Client auth timeout, disconnected');
+                // socket.disconnect(); //franz: remove auto disconnect every 15 seconds
+                // console.log('Client auth timeout, disconnected'); //franz: remove auto disconnect every 15 seconds
             }, 15000);
 
             socket.on('auth', (data) => this.authenticate(socket, data, authTimeOut, (authResponse, authTimeOut1)=> {
@@ -47,30 +46,27 @@ class ChatManager {
                 }
             }));
 
-            const get_all_sockets = await _.socketio_connection.fetchSockets();
-            console.log("Total connected socket(s): " + get_all_sockets.length);
-
         });
 
-        //FRANZ
-        setInterval(() => {
-            console.log(' === Connected users ===');
-            global.clientManager.client_list.forEach((client) => {
-                console.log(client.ua_number + ' = ' +client.socket.id);
+        //franz: remove auto disconnect every 5 minutes
+        // setInterval(() => {
+        //     console.log(' === Connected users ===');
+        //     global.clientManager.client_list.forEach((client) => {
+        //         console.log(client.ua_number);
 
-                if(moment().diff(moment(client.last_ping), 'minutes') >= 1) {
-                    console.log(client.ua_number + ' = ' +client.socket.id+ ' timed out, disengaged!');
-                    global.clientManager.removeBySocket(client.socket.id);
-                    client.socket.disconnect();
-                }
-            });
-            // _.socketio_connection.clients.length;
-            console.log(' === End of list ===');
+        //         if(moment().diff(moment(client.last_ping), 'minutes') >= 1) {
+        //             console.log(client.ua_number + ' timed out, disengaged!');
+        //             global.clientManager.removeBySocket(client.socket.id);
+        //             client.socket.disconnect();
+        //         }
+        //     });
+        //     _.socketio_connection.clients.length;
+        //     console.log(' === End of list ===');
 
-            _.ack_history = _.ack_history.filter(x => { return moment().diff(moment(x.ack_date), 'minutes') < 5; });
-            console.log('ack count: ', _.ack_history.length);
+        //     _.ack_history = _.ack_history.filter(x => { return moment().diff(moment(x.ack_date), 'minutes') < 5; });
+        //     console.log('ack count: ', _.ack_history.length);
 
-        }, 10000);
+        // }, 300000);
 
         if (config.jobs.delayed_message) {
             _.jobs = [];
@@ -498,9 +494,9 @@ class ChatManager {
                     if(chat_message.isPushRequired()) {
 
                         if(c.client_type == 2)
-                            chat_message.source = c.pcb_ua_number ;
+                          chat_message.source = c.pcb_ua_number ;
 
-                            global.notificationManager.sendPush(chat_message); //notif for normal msg
+                        global.notificationManager.sendPush(chat_message);
                     }
 
                     break;
