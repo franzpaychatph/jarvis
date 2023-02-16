@@ -23,33 +23,32 @@ class ClusterManager {
         });
         server.bind(9091);
 
-        //FRANZ
-        // setInterval(() => {
-        //     server.setBroadcast(true);
-        //     var msg = new Buffer('PCNODELOOKUP_' + _.instance_id);
-        //     server.send(msg, 0, msg.length, 9091, '10.0.2.255');
-        // }, 3000);
+        setInterval(() => {
+            server.setBroadcast(true);
+            var msg = new Buffer('PCNODELOOKUP_' + _.instance_id);
+            server.send(msg, 0, msg.length, 9091, '10.0.2.255');
+        }, 3000);
 
 
         //FRANZ
-        // _.cluster_io_connection.on('connect', (socket) => {
-            // var authTimeOut = setTimeout(() => {
-            //     socket.disconnect();
-            //     console.log('Client auth timeout, disconnected');
-            // }, 15000);
+        _.cluster_io_connection.on('connect', (socket) => {
+            var authTimeOut = setTimeout(() => {
+                //socket.disconnect(); //franz: remove auto disconnect every 15 seconds
+                //console.log('Client auth timeout, disconnected'); //franz: remove auto disconnect every 15 seconds
+            }, 15000);
 
-            // socket.on('auth', (data) => this.authenticateChatNode(socket, data, ()=> { 
-            //     clearTimeout(authTimeOut);
-            // }));
-        // });
+            socket.on('auth', (data) => this.authenticateChatNode(socket, data, ()=> { 
+                clearTimeout(authTimeOut);
+            }));
+           
+        });
 
     }
 
-    //FRANZ
-    // authenticateChatNode(socket, data, callback) {
-    //     callback();
+    authenticateChatNode(socket, data, callback) {
+        callback();
 
-    // }
+    }
 
 
 }
