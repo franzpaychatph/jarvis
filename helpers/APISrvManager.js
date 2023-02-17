@@ -341,6 +341,12 @@ class APISrvManager {
             client_type_recipient: parseInt(req.body.client_type_recipient || "0")
           };
 
+          //FRANZ: added new key:value for transaction_ref_no > fix for loan/borrow money multiple chat bubble to 1 chat bubble only.
+          //contributor: Franz/Fred
+          if(msg.extras.hasOwnProperty('transaction_ref_no')){
+            msg.transaction_ref_no = msg.extras.transaction_ref_no;
+          }
+
           if(req.body.client_type_recipient != undefined && req.body.client_type_recipient == 2){
 
             global.clientManager.getByUaNumber(Number(req.body.ua_number)).forEach((targetClient) => {

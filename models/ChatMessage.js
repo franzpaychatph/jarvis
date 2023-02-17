@@ -59,6 +59,10 @@ class ChatMessage {
         // Extra properties carried by the message (e.g. transaction_id)
         this.extras = m.extras || {};
 
+        //FRANZ: added new key:value for transaction_ref_no > fix for loan/borrow money multiple chat bubble to 1 chat bubble only.
+        //contributor: Franz/Fred
+        this.transaction_ref_no = m.transaction_ref_no || {};
+
         if (typeof m.extras === 'string' || m.extras instanceof  String ) {
             this.extras = JSON.parse(m.extras);
         }
